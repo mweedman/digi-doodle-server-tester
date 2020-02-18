@@ -4,13 +4,13 @@ const PromptServices = require('./prompt-services');
 const PromptRouter = express.Router();
 
 PromptRouter
-  .get('/', (req, res, next) => {
-    PromptServices.getAllPrompts(req.app.get('db'))
-      .then(arr => {
-        const i = Math.floor(Math.random() * arr.length);
-        res.status(200);
-        res.send(arr[i]);
-      });
+  .get('/', async (req, res, next) => {
+    try {
+      const prompt = await PromptServices.getRandomPrompt(req.app.get('db'));
+      res.send(prompt[0]);
+    } catch(error) {
+      next(error);
+    }
   });
 
 module.exports = PromptRouter;

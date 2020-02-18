@@ -1,6 +1,9 @@
 const promptServices = {
-  getAllPrompts(db) {
-    return db('prompts').select('prompt');
+  getRandomPrompt(db) {
+    return db('prompts')
+      .select('prompt')
+      .orderByRaw('RANDOM()')
+      .limit(1);
   }
 };
 

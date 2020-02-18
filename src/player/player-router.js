@@ -13,12 +13,11 @@ PlayerRouter
   
     if (!userName){
       return res.status(404).json({
-        error: 'No username found!'
+        error: 'Request must include a username'
       });
     }
     try{
       let uniqueCheck = await PlayerServices.checkForUsername(req.app.get('db'), userName);
-      console.log('uniqueCheck: ', uniqueCheck[0]);
 
       if (uniqueCheck[0] !== undefined) {
         return res.status(400).json({ error: 'Duplicate usernames are not allowed' });
@@ -28,21 +27,12 @@ PlayerRouter
         req.app.get('db'),
         userName
       );
-     
+      console.log('playerId response: ', playerId);
       res.send(playerId);
 
     } catch(error) {
       next(error);
     }
-  });
-
-PlayerRouter
-  .delete('/:playerId', (req, res, next) => {
-    PlayerServices.deletePlayer(req.app.get('db'), req.params.playerId)
-      .then(() => 
-        res.send(204)
-      )
-      .catch(next);
   });
 
 module.exports = PlayerRouter;

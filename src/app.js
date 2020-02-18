@@ -20,9 +20,6 @@ app.use('/api/game', GameRouter);
 app.use('/api/player', PlayerRouter);
 app.use('/api/prompt', PromptRouter);
 
-app.get('/', (req, res) => {
-  res.send('Hello, boilerplate!');
-});
 
 app.use(function errorHandler(error, req, res, next) {
   let response;
@@ -34,5 +31,6 @@ app.use(function errorHandler(error, req, res, next) {
   }
   res.status(500).json(response);
 });
+
 
 module.exports = app;

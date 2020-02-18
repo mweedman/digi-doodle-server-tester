@@ -1,0 +1,3 @@
+ALTER TABLE "game"
+  DROP COLUMN "status",
+  ADD COLUMN "canvas" VARCHAR(2083) NOT NULL;
