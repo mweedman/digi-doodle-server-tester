@@ -7,12 +7,13 @@
     "test": "mocha --require test/setup.js",
     "dev": "nodemon src/server.js",
     "migrate": "postgrator --config postgrator-config.js",
+    "migrate:production": "env SSL=true DATABASE_URL=postgres://ecdziztinahztb:d902bf7cf563a9bb9cda5ffd0af47cd6eda249326dad0a5320206d82672a067f@ec2-184-72-236-57.compute-1.amazonaws.com:5432/d3ase8dau5ru7c npm run migrate",
     "start": "node src/server.js",
     "predeploy": "npm audit",
     "deploy": "git push heroku master"
   },
   "keywords": [],
-  "author": "",
+  "author": "digi-dev-co",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
