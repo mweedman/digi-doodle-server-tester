@@ -43,7 +43,8 @@ const GameHelpers = {
   async checkGuess(db, gameId, guess) { 
     let answer = await GameServices.getGame(db, gameId);
     answer = answer[0].current_answer;
-    console.log(answer);
+    console.log('answer from db: ', answer);
+    console.log('guess to check: ', guess);
     if (guess.toLowerCase().trim() === answer.toLowerCase().trim()) {
       return true;
     } else {
@@ -59,6 +60,7 @@ const GameHelpers = {
           player_id: playerId
         })
         .select('score');
+    console.log('player to give point to: ', player);
     const score = player[0].score;
 
     await db('game_players')
@@ -81,6 +83,14 @@ const GameHelpers = {
         winner: winningPlayers.join(' and '),
         score: highestScore
       };
+    }
+  },
+
+  async useTimer(io, room, seconds) {
+    while (seconds >= 0) {
+      await setTimeout(() => {
+        io.to(room).emit('timer', seconds--);
+      }, 1000);
     }
   }
 };
